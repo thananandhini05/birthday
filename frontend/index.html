@@ -1,0 +1,3092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Journey 🎂</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+    font-family:"Trebuchet MS",Arial,sans-serif;
+    background:#fff7f7;
+    color:#171717;
+    overflow:hidden;
+}
+
+.page{
+    width:100vw;
+    height:100vh;
+    display:none;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 10% 10%,#ffdede 0 5%,transparent 6%),
+        radial-gradient(circle at 90% 90%,#f7c4c4 0 5%,transparent 6%),
+        #fff8f8;
+}
+
+.page.active{
+    display:flex;
+    animation:pageIn .6s ease;
+}
+
+@keyframes pageIn{
+    from{opacity:0;transform:translateX(40px);}
+    to{opacity:1;transform:translateX(0);}
+}
+
+.center{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+}
+
+h1,h2{
+    color:#8e1820;
+    text-align:center;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    font-family:inherit;
+}
+
+/* =========================
+   HEARTS
+========================= */
+
+.hearts{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    overflow:hidden;
+}
+
+.heart{
+    position:absolute;
+    font-size:24px;
+    animation:floatHeart 6s linear infinite;
+    opacity:.7;
+}
+
+@keyframes floatHeart{
+    0%{
+        transform:translateY(110vh) rotate(0deg);
+        opacity:0;
+    }
+    20%{opacity:.8;}
+    100%{
+        transform:translateY(-15vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* =========================
+   NEXT BUTTON
+========================= */
+
+.next-btn{
+    position:absolute;
+    bottom:28px;
+    right:30px;
+    background:#9e1c25;
+    color:white;
+    padding:13px 25px;
+    border-radius:30px;
+    font-size:16px;
+    font-weight:bold;
+    box-shadow:4px 4px 0 #171717;
+    z-index:30;
+}
+
+.next-btn:hover{
+    transform:translateY(-4px) scale(1.05);
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-page-btn{
+    position:absolute;
+    bottom:28px;
+    left:30px;
+    background:#171717;
+    color:white;
+    padding:13px 25px;
+    border-radius:30px;
+    font-size:16px;
+    font-weight:bold;
+    box-shadow:4px 4px 0 #9e1c25;
+    z-index:30;
+}
+
+.back-page-btn:hover{
+    transform:translateY(-4px) scale(1.05);
+}
+
+/* =========================
+   PAGE 1
+========================= */
+
+.password-box{
+    width:min(440px,90%);
+    background:white;
+    border:4px solid #171717;
+    border-radius:30px;
+    padding:30px;
+    box-shadow:10px 10px 0 #9e1c25;
+    text-align:center;
+}
+
+.password-box h1{
+    font-size:35px;
+    margin-bottom:8px;
+}
+
+.scene{
+    font-size:70px;
+    margin:10px 0;
+}
+
+.open-text{
+    font-size:18px;
+    font-weight:bold;
+    color:#8e1820;
+    margin-bottom:20px;
+}
+
+.password-display{
+    height:58px;
+    border:3px solid #171717;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    letter-spacing:8px;
+    margin-bottom:18px;
+    background:#fffafa;
+}
+
+.keypad{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:9px;
+}
+
+.key{
+    height:52px;
+    border:2px solid #171717;
+    border-radius:13px;
+    background:#f7cccc;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.key.back{
+    background:#171717;
+    color:white;
+}
+
+.confirm{
+    grid-column:span 2;
+    background:#9e1c25;
+    color:white;
+}
+
+.wrong-screen{
+    display:none;
+    position:absolute;
+    inset:0;
+    background:#8e1820;
+    color:white;
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+}
+
+.wrong-screen.show{
+    display:flex;
+}
+
+.wrong-screen h1{
+    color:white;
+    font-size:80px;
+}
+
+.teddy{
+    font-size:130px;
+}
+
+.retry{
+    margin-top:20px;
+    padding:13px 25px;
+    border-radius:25px;
+    background:white;
+    color:#8e1820;
+    font-weight:bold;
+}
+
+/* =========================
+   PAGE 2
+========================= */
+
+.big-wish{
+    font-size:clamp(45px,8vw,90px);
+    color:#8e1820;
+    text-shadow:4px 4px #f3b3b3;
+    animation:bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+    50%{transform:translateY(-12px)}
+}
+
+.subtitle{
+    margin-top:15px;
+    font-size:22px;
+    text-align:center;
+}
+
+.gift{
+    font-size:70px;
+    margin:20px;
+}
+
+/* =========================
+   PAGE 3 - MEMORIES
+========================= */
+
+.memory-panel{
+    width:min(900px,88%);
+    height:70%;
+    background:white;
+    border:4px solid #171717;
+    border-radius:25px;
+    padding:25px;
+    overflow-y:auto;
+    box-shadow:8px 8px 0 #b5222b;
+}
+
+.memory-buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.memory-btn{
+    padding:13px 20px;
+    border-radius:25px;
+    background:#9e1c25;
+    color:white;
+    font-weight:bold;
+}
+
+.media-area{
+    display:none;
+}
+
+.media-area.active{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:15px;
+}
+
+.placeholder img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    border-radius:12px;
+}
+
+/* =========================
+   PAGE 3 VIDEO
+   v1.mp4
+   2:3 RATIO
+========================= */
+
+#videos{
+    width:100%;
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+#videos.active{
+    display:flex;
+}
+
+.memory-video{
+    width:min(360px,70%);
+    aspect-ratio:2 / 3;
+    height:auto;
+    display:block;
+    object-fit:contain;
+    background:#000;
+    border-radius:18px;
+    border:4px solid #171717;
+    box-shadow:6px 6px 0 #9e1c25;
+}
+
+/* When video itself becomes fullscreen */
+.memory-video:fullscreen{
+    width:100vw;
+    height:100vh;
+    max-width:none;
+    max-height:none;
+    aspect-ratio:auto;
+    object-fit:contain;
+    border:none;
+    border-radius:0;
+    box-shadow:none;
+    background:#000;
+}
+
+.memory-video:-webkit-full-screen{
+    width:100vw;
+    height:100vh;
+    max-width:none;
+    max-height:none;
+    aspect-ratio:auto;
+    object-fit:contain;
+    border:none;
+    border-radius:0;
+    box-shadow:none;
+    background:#000;
+}
+
+/* =========================
+   PAGE 3 QUOTE
+========================= */
+
+.memory-quote{
+    width:100%;
+    text-align:center;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(16px,2.2vw,22px);
+    font-style:italic;
+    line-height:1.6;
+    color:#8e1820;
+    padding:20px 15px 5px;
+    margin-top:15px;
+}
+
+/* =========================
+   PAGE 4
+========================= */
+
+.message-box{
+    width:min(900px,88%);
+    height:78%;
+    overflow-y:auto;
+    background:white;
+    border:4px solid #171717;
+    border-radius:25px;
+    padding:35px;
+    box-shadow:8px 8px 0 #9e1c25;
+}
+
+.message-box h2{
+    font-size:35px;
+    margin-bottom:20px;
+}
+
+.message-box p{
+    font-size:18px;
+    line-height:1.8;
+    margin-bottom:18px;
+}
+
+/* =========================
+   PAGE 5
+========================= */
+
+.option-container{
+    display:flex;
+    gap:30px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:30px;
+}
+
+.option-card{
+    width:220px;
+    height:180px;
+    background:white;
+    border:4px solid #171717;
+    border-radius:25px;
+    box-shadow:7px 7px 0 #9e1c25;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+
+.option-card .cartoon{
+    font-size:65px;
+}
+
+.option-card h3{
+    color:#8e1820;
+}
+
+.gallery{
+    display:none;
+    position:absolute;
+    inset:0;
+    background:#fff7f7;
+    z-index:50;
+    padding:70px 30px 30px;
+    overflow:auto;
+}
+
+.gallery.show{
+    display:block;
+}
+
+.gallery h2{
+    margin-bottom:20px;
+}
+
+.gallery-grid{
+    width:min(900px,95%);
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+}
+
+.gallery-grid .placeholder{
+    width:100%;
+}
+
+.gallery-grid .placeholder img{
+    width:100%;
+    height:auto;
+    display:block;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+/* =========================
+   AI EDITS - 3 VERTICAL INSTAGRAM STORY SIZE
+========================= */
+
+.ai-edits-container{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:25px;
+    padding:10px 0 40px;
+}
+
+.ai-edits-container img{
+    width:360px;
+    aspect-ratio:9 / 16;
+    height:auto;
+    object-fit:cover;
+    display:block;
+    border-radius:15px;
+    border:4px solid #171717;
+    box-shadow:6px 6px 0 #9e1c25;
+}
+
+.back-btn{
+    position:absolute;
+    top:20px;
+    left:20px;
+    background:#171717;
+    color:white;
+    padding:10px 20px;
+    border-radius:20px;
+}
+
+/* =========================
+   FUNNY SCRAPBOOK
+========================= */
+
+#funnyGallery{
+    padding:0;
+    overflow:auto;
+    background:#f8e4e8;
+}
+
+.funny-collage{
+    --pastel-pink:#f3c9d0;
+    --light-pink:#f9e7e9;
+    --cream:#fff9f4;
+    --dark-pink:#b97b88;
+    --text:#44393b;
+
+    position:relative;
+    width:100%;
+    min-height:100vh;
+    overflow:hidden;
+    margin:auto;
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255,255,255,.8),
+            transparent 25%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(235,190,198,.25),
+            transparent 30%
+        ),
+        #f8e9e5;
+
+    padding:70px 30px 100px;
+}
+
+.funny-collage .scrap-paper{
+    position:absolute;
+    pointer-events:none;
+}
+
+.funny-collage .paper-one{
+    width:90%;
+    height:100%;
+    top:-20px;
+    left:5%;
+    background:rgba(255,250,245,.72);
+    clip-path:polygon(
+        0% 3%,4% 2%,9% 4%,16% 2%,
+        25% 5%,35% 2%,46% 4%,58% 1%,
+        70% 4%,80% 2%,90% 5%,100% 2%,
+        100% 96%,94% 98%,86% 95%,
+        78% 98%,66% 96%,55% 99%,
+        43% 96%,31% 98%,20% 95%,
+        10% 98%,0% 95%
+    );
+    z-index:0;
+}
+
+.funny-collage .paper-two{
+    width:70%;
+    height:70%;
+    left:-20%;
+    bottom:-25%;
+    background:rgba(245,214,216,.38);
+    transform:rotate(-12deg);
+    z-index:0;
+}
+
+.funny-collage .leaf-shadow{
+    position:absolute;
+    width:300px;
+    height:600px;
+    background:rgba(130,105,100,.08);
+    filter:blur(20px);
+    border-radius:50%;
+    transform:rotate(30deg);
+}
+
+.funny-collage .shadow-one{
+    left:-170px;
+    top:-100px;
+}
+
+.funny-collage .shadow-two{
+    right:-180px;
+    bottom:-180px;
+}
+
+.funny-collage .top-heart{
+    position:absolute;
+    top:35px;
+    right:8%;
+    z-index:4;
+    color:#d88f9c;
+    font-family:"Caveat",cursive;
+    font-size:75px;
+    transform:rotate(-12deg);
+}
+
+.funny-collage .scrapbook-back{
+    position:absolute;
+    top:25px;
+    left:25px;
+    bottom:auto;
+    z-index:20;
+    background:#44393b;
+    color:white;
+    padding:11px 22px;
+    border-radius:25px;
+    font-size:15px;
+    box-shadow:3px 3px 0 #d99aa5;
+}
+
+.funny-collage .photo-card{
+    position:absolute;
+    z-index:3;
+    overflow:visible;
+    background:#fffdfb;
+    border:5px solid rgba(255,255,255,.95);
+    border-radius:22px;
+    box-shadow:
+        0 14px 35px rgba(94,65,65,.15),
+        0 4px 10px rgba(94,65,65,.08);
+}
+
+.funny-collage .photo-card img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:16px;
+}
+
+.funny-collage .photo-left{
+    width:22%;
+    height:48vh;
+    left:5%;
+    top:22%;
+    transform:rotate(-4deg);
+}
+
+/* Funny center video */
+
+.funny-collage .photo-center{
+    width:32%;
+    height:58vh;
+    left:50%;
+    top:17%;
+    transform:translateX(-50%);
+}
+
+.funny-collage .video-center video{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:16px;
+    background:#000;
+}
+
+.funny-collage .photo-right{
+    width:22%;
+    height:48vh;
+    right:5%;
+    top:22%;
+    transform:rotate(4deg);
+}
+
+.funny-collage .tape{
+    position:absolute;
+    z-index:10;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(255,244,220,.68) 0px,
+            rgba(255,244,220,.68) 12px,
+            rgba(239,217,190,.55) 13px,
+            rgba(255,244,220,.68) 25px
+        );
+    box-shadow:0 2px 4px rgba(80,60,50,.06);
+    opacity:.9;
+}
+
+.funny-collage .center-tape{
+    width:150px;
+    height:42px;
+    top:-23px;
+    left:50%;
+    transform:translateX(-50%) rotate(1deg);
+}
+
+.funny-collage .small-tape{
+    width:95px;
+    height:30px;
+    top:-16px;
+    left:50%;
+    transform:translateX(-50%) rotate(-2deg);
+}
+
+.funny-collage .scrap-caption{
+    position:absolute;
+    z-index:5;
+    left:50%;
+    bottom:5%;
+    transform:translateX(-50%);
+    width:min(600px,90%);
+    text-align:center;
+}
+
+.funny-collage .scrap-caption h1{
+    font-family:"Caveat","Trebuchet MS",cursive;
+    font-size:clamp(32px,5vw,56px);
+    font-weight:600;
+    color:var(--text);
+    line-height:1.1;
+}
+
+.funny-collage .scrap-caption p{
+    margin-top:18px;
+    font-family:"Montserrat","Trebuchet MS",sans-serif;
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:7px;
+    color:var(--dark-pink);
+}
+
+.funny-collage .caption-heart{
+    margin-top:8px;
+    font-family:"Caveat",cursive;
+    font-size:40px;
+    color:#c98794;
+    line-height:35px;
+}
+
+.funny-collage .scrap-underline{
+    width:180px;
+    height:2px;
+    margin:5px auto 0;
+    background:#d99aa5;
+    border-radius:50%;
+}
+
+.funny-collage .flower-decoration{
+    position:absolute;
+    width:250px;
+    height:350px;
+    right:1%;
+    bottom:-50px;
+    z-index:2;
+    transform:rotate(7deg);
+    opacity:.65;
+}
+
+.funny-collage .stem{
+    position:absolute;
+    width:2px;
+    height:300px;
+    background:#a99d8d;
+    bottom:0;
+    left:50%;
+    transform-origin:bottom;
+}
+
+.funny-collage .stem-one{transform:rotate(-18deg);}
+.funny-collage .stem-two{transform:rotate(-5deg);}
+.funny-collage .stem-three{transform:rotate(10deg);}
+.funny-collage .stem-four{transform:rotate(24deg);}
+
+.funny-collage .flower{
+    position:absolute;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    background:#eadfd5;
+}
+
+.funny-collage .flower-one{left:22%;top:55px;}
+.funny-collage .flower-two{left:39%;top:20px;}
+.funny-collage .flower-three{left:52%;top:90px;}
+.funny-collage .flower-four{left:68%;top:45px;}
+.funny-collage .flower-five{left:78%;top:120px;}
+
+.funny-collage .bottom-tape{
+    position:absolute;
+    width:130px;
+    height:40px;
+    right:8%;
+    bottom:7%;
+    z-index:4;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(247,224,199,.75) 0px,
+            rgba(247,224,199,.75) 14px,
+            rgba(226,199,173,.55) 15px,
+            rgba(247,224,199,.75) 27px
+        );
+    transform:rotate(14deg);
+}
+
+.funny-collage .dots{
+    position:absolute;
+    font-size:22px;
+    letter-spacing:5px;
+    color:#e1b6bd;
+    z-index:2;
+}
+
+.funny-collage .dots-one{
+    top:14%;
+    left:8%;
+    transform:rotate(-15deg);
+}
+
+.funny-collage .dots-two{
+    bottom:18%;
+    left:9%;
+    transform:rotate(10deg);
+}
+
+/* =========================
+   PAGE 6 GAME
+========================= */
+
+.game-intro h1{
+    font-size:40px;
+}
+
+.game-intro p{
+    font-size:22px;
+    margin-top:15px;
+    text-align:center;
+}
+
+.game-start-btn{
+    margin-top:25px;
+    background:#9e1c25;
+    color:white;
+    padding:14px 30px;
+    border-radius:30px;
+    font-size:18px;
+    font-weight:bold;
+    box-shadow:4px 4px 0 #171717;
+}
+
+.game-rules{
+    display:none;
+    width:min(650px,88%);
+    background:white;
+    border:4px solid #171717;
+    border-radius:25px;
+    padding:30px;
+    box-shadow:8px 8px 0 #b5222b;
+    text-align:center;
+}
+
+.game-rules.show{
+    display:block;
+}
+
+.game-rules h2{
+    font-size:42px;
+    margin-bottom:22px;
+}
+
+.game-rules p{
+    font-size:21px;
+    line-height:1.7;
+    margin:10px 0;
+}
+
+.game-rules .love-rule{
+    color:#8e1820;
+    font-size:25px;
+    font-weight:bold;
+}
+
+.game-area{
+    display:none;
+    width:100%;
+    text-align:center;
+}
+
+.game-area.show{
+    display:block;
+}
+
+.game-board{
+    width:310px;
+    height:310px;
+    margin:20px auto;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:repeat(3,1fr);
+    gap:8px;
+    position:relative;
+    z-index:10;
+}
+
+.cell{
+    width:100%;
+    height:100%;
+    min-width:0;
+    min-height:0;
+    background:white;
+    border:3px solid #171717;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:55px;
+    font-weight:bold;
+    cursor:pointer;
+    user-select:none;
+    -webkit-user-select:none;
+    position:relative;
+    z-index:20;
+    pointer-events:auto;
+}
+
+.cell:hover{
+    background:#fff0f0;
+}
+
+.cell.x{
+    color:#1665c1;
+}
+
+.cell.o{
+    color:#9e1c25;
+}
+
+.result{
+    min-height:55px;
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+    color:#1665c1;
+}
+
+.smile{
+    font-size:60px;
+}
+
+.game-end-buttons{
+    display:none;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:10px;
+}
+
+.game-end-buttons.show{
+    display:flex;
+}
+
+.game-end-buttons button{
+    padding:12px 23px;
+    border-radius:25px;
+    font-weight:bold;
+    font-size:16px;
+}
+
+.try-again{
+    background:#171717;
+    color:white;
+}
+
+.game-next{
+    background:#9e1c25;
+    color:white;
+}
+
+/* =========================
+   PAGE 7 QUESTIONS
+========================= */
+
+.question-box{
+    width:min(800px,90%);
+    background:white;
+    border:4px solid #171717;
+    border-radius:28px;
+    padding:35px;
+    box-shadow:8px 8px 0 #9e1c25;
+    text-align:center;
+}
+
+.question-number{
+    font-size:18px;
+    color:#9e1c25;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.question-box h1{
+    font-size:32px;
+    margin-bottom:25px;
+}
+
+.answer-box{
+    width:100%;
+    min-height:130px;
+    border:3px solid #171717;
+    border-radius:18px;
+    padding:15px;
+    font-family:inherit;
+    font-size:18px;
+    resize:none;
+    outline:none;
+    background:#fffafa;
+}
+
+.answer-box:focus{
+    border-color:#9e1c25;
+}
+
+.question-next{
+    margin-top:20px;
+    background:#9e1c25;
+    color:white;
+    padding:13px 28px;
+    border-radius:28px;
+    font-size:17px;
+    font-weight:bold;
+    box-shadow:4px 4px 0 #171717;
+}
+
+.question-screen{
+    display:none;
+    width:100%;
+    justify-content:center;
+}
+
+.question-screen.active{
+    display:flex;
+}
+
+.answers-summary{
+    width:min(900px,90%);
+    height:78%;
+    overflow-y:auto;
+    background:white;
+    border:4px solid #171717;
+    border-radius:28px;
+    padding:30px;
+    box-shadow:8px 8px 0 #9e1c25;
+}
+
+.answers-summary h1{
+    font-size:38px;
+    margin-bottom:25px;
+}
+
+.answer-card{
+    border:3px solid #f0b7b7;
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:18px;
+    background:#fffafa;
+}
+
+.answer-card h3{
+    color:#8e1820;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.answer-card p{
+    font-size:18px;
+    line-height:1.6;
+    white-space:pre-wrap;
+    word-break:break-word;
+}
+
+.note{
+    margin-top:20px;
+    padding:18px;
+    border-radius:18px;
+    background:#ffe3e3;
+    font-size:18px;
+    font-weight:bold;
+    text-align:center;
+    line-height:1.6;
+}
+
+/* =========================
+   PAGE 8
+========================= */
+
+.final-page h1{
+    font-size:clamp(40px,7vw,65px);
+    line-height:1.2;
+}
+
+.final-page p{
+    font-size:28px;
+    margin-top:25px;
+    text-align:center;
+    color:#8e1820;
+    font-weight:bold;
+}
+
+.final-love{
+    font-size:42px !important;
+    margin-top:35px !important;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .ai-edits-container img{
+        width:90%;
+        max-width:360px;
+        aspect-ratio:9 / 16;
+    }
+
+}
+
+@media(max-width:900px){
+
+    .funny-collage{
+        min-height:100vh;
+        padding:30px 15px 80px;
+    }
+
+    .funny-collage .photo-left,
+    .funny-collage .photo-right{
+        width:23%;
+        height:36vh;
+        top:28%;
+    }
+
+    .funny-collage .photo-center{
+        width:40%;
+        height:52vh;
+        top:19%;
+    }
+
+    .funny-collage .scrap-caption{
+        bottom:7%;
+    }
+}
+
+@media(max-width:600px){
+
+    .memory-panel{
+        width:94%;
+        height:75%;
+        padding:18px;
+    }
+
+    .memory-quote{
+        font-size:15px;
+        line-height:1.5;
+        padding:15px 5px 5px;
+    }
+
+    .memory-video{
+        width:min(280px,85%);
+        aspect-ratio:2 / 3;
+    }
+
+    .game-board{
+        width:270px;
+        height:270px;
+    }
+
+    .message-box{
+        padding:22px;
+    }
+
+    .message-box p{
+        font-size:16px;
+    }
+
+    .game-intro h1{
+        font-size:30px;
+    }
+
+    .game-rules h2{
+        font-size:34px;
+    }
+
+    .question-box{
+        padding:25px 20px;
+    }
+
+    .question-box h1{
+        font-size:25px;
+    }
+
+    .answers-summary{
+        padding:22px;
+    }
+
+    .answers-summary h1{
+        font-size:30px;
+    }
+
+    .back-page-btn{
+        bottom:15px;
+        left:12px;
+        padding:12px 18px;
+        font-size:14px;
+    }
+
+    .funny-collage{
+        min-height:850px;
+        padding:20px 10px;
+    }
+
+    .funny-collage .top-heart{
+        top:55px;
+        right:25px;
+        font-size:50px;
+    }
+
+    .funny-collage .scrapbook-back{
+        top:18px;
+        left:15px;
+        padding:9px 16px;
+        font-size:13px;
+    }
+
+    .funny-collage .photo-center{
+        width:62%;
+        height:430px;
+        top:17%;
+    }
+
+    .funny-collage .photo-left,
+    .funny-collage .photo-right{
+        width:25%;
+        height:220px;
+        top:30%;
+    }
+
+    .funny-collage .photo-left{
+        left:1%;
+    }
+
+    .funny-collage .photo-right{
+        right:1%;
+    }
+
+    .funny-collage .center-tape{
+        width:110px;
+        height:35px;
+    }
+
+    .funny-collage .small-tape{
+        width:65px;
+        height:22px;
+    }
+
+    .funny-collage .scrap-caption{
+        width:94%;
+        bottom:8%;
+    }
+
+    .funny-collage .scrap-caption h1{
+        font-size:36px;
+    }
+
+    .funny-collage .scrap-caption p{
+        font-size:11px;
+        letter-spacing:4px;
+    }
+
+    .funny-collage .flower-decoration{
+        right:-150px;
+        bottom:-80px;
+        transform:scale(.75) rotate(7deg);
+    }
+
+    .funny-collage .dots-one{
+        left:4%;
+        top:12%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+PAGE 1 - PASSWORD
+===================================================== -->
+
+<section class="page active" id="page1">
+
+    <div class="center">
+
+        <div class="password-box">
+
+            <div class="scene">🔐</div>
+
+            <h1>Something is Locked...</h1>
+
+            <div class="open-text">
+                First, open this little surprise 👀
+            </div>
+
+            <div class="password-display">
+                <span id="dots">_ _ _ _</span>
+            </div>
+
+            <div class="keypad">
+
+                <button class="key" onclick="pressKey('1')">1</button>
+                <button class="key" onclick="pressKey('2')">2</button>
+                <button class="key" onclick="pressKey('3')">3</button>
+
+                <button class="key" onclick="pressKey('4')">4</button>
+                <button class="key" onclick="pressKey('5')">5</button>
+                <button class="key" onclick="pressKey('6')">6</button>
+
+                <button class="key" onclick="pressKey('7')">7</button>
+                <button class="key" onclick="pressKey('8')">8</button>
+                <button class="key" onclick="pressKey('9')">9</button>
+
+                <button class="key back" onclick="backspace()">⌫</button>
+                <button class="key" onclick="pressKey('0')">0</button>
+                <button class="key confirm" onclick="checkPassword()">
+                    OPEN ❤️
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="wrong-screen" id="wrongScreen">
+
+        <div class="teddy">🧸</div>
+
+        <h1>Wrong! 😭</h1>
+
+        <p>Try again chelloww 👀</p>
+
+        <button class="retry" onclick="closeWrong()">
+            Try Again
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+PAGE 2 - BIRTHDAY WISH
+===================================================== -->
+
+<section class="page" id="page2">
+
+    <div class="hearts" id="hearts2"></div>
+
+    <div class="center">
+
+        <h1 class="big-wish">
+            HAPPY BIRTHDAY MAMA
+        </h1>
+
+        <p class="subtitle">
+            A little birthday journey made specially for you ✨
+        </p>
+
+        <div class="gift">
+            🎂🎈
+        </div>
+
+    </div>
+
+    <button class="next-btn" onclick="nextPage(3)">
+        Next Surprise ➜
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+PAGE 3 - MEMORIES
+===================================================== -->
+
+<section class="page" id="page3">
+
+    <div class="hearts" id="hearts3"></div>
+
+    <div class="center">
+
+        <div class="memory-panel">
+
+            <h2 style="font-size:35px;margin-bottom:20px;">
+                📸 Memories
+            </h2>
+
+            <div class="memory-buttons">
+
+                <button
+                    class="memory-btn"
+                    onclick="showMedia('photos')">
+                    📸 Photos
+                </button>
+
+                <button
+                    class="memory-btn"
+                    onclick="showVideo()">
+                    🎬 Video
+                </button>
+
+            </div>
+
+
+            <!-- PHOTOS -->
+
+            <div class="media-area active" id="photos">
+
+                <div class="placeholder">
+                    <img
+                        src="yt1.jpeg"
+                        alt="Birthday Memory 1">
+                </div>
+
+                <div class="placeholder">
+                    <img
+                        src="yt2.jpeg"
+                        alt="Birthday Memory 2">
+                </div>
+
+                <div class="placeholder">
+                    <img
+                        src="yt3.jpeg"
+                        alt="Birthday Memory 3">
+                </div>
+
+                <div class="placeholder">
+                    <img
+                        src="yt4.jpeg"
+                        alt="Birthday Memory 4">
+                </div>
+
+            </div>
+
+
+            <!-- VIDEO
+                 FILE NAME = v1.mp4
+                 RATIO = 2:3
+                 SOUND = ON
+            -->
+
+            <div class="media-area" id="videos">
+
+                <video
+                    id="memoryVideo"
+                    class="memory-video"
+                    src="v1.mp4"
+                    controls
+                    playsinline
+                    preload="auto"
+                    aria-label="Birthday Memory Video">
+                    Your browser does not support video playback.
+                </video>
+
+            </div>
+
+
+            <!-- QUOTE -->
+
+            <p class="memory-quote">
+
+                “Among all the people I could have met,
+                I’m happiest that I met you. 💗✨
+                May I keep celebrating your birthday
+                with you for years to come.”
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <button class="next-btn" onclick="nextPage(4)">
+        Next Surprise ➜
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+PAGE 4 - MESSAGE
+===================================================== -->
+
+<section class="page" id="page4">
+
+    <div class="hearts" id="hearts4"></div>
+
+    <div class="center">
+
+        <div class="message-box">
+
+            <h2>💗 My Chelloww</h2>
+
+            <p>
+                Happy Birthday daa… illa illa 😭💗 enoda Yuvaaa,
+                en chella paiyan, enoda favourite person,
+                enna ivlo love panra en aluuu 🫂🧿🤍
+                Un birthday na enaku just another day illa,
+                en life la romba special ah irukura oru day…
+                because indha world la nee vandha day dhaan,
+                en life-ku ivlo special ah oru person vandhadhuku reason. 🥹💗
+            </p>
+
+            <p>
+                Dec 22 2024 la namma pesa start pannadhu la irundhu
+                ippo varaikum, evlo memories, evlo sanda, evlo teasing,
+                evlo sirippu, evlo late-night talks, evlo “miss you”s,
+                “love you”s nu yosicha romba happy ah iruku 😭🫂
+                First time nearula meet pannadhu, un voice first time
+                direct ah kettadhu, nee enna paatha moments…
+                ellame enaku romba precious. 💎🤍
+            </p>
+
+            <p>
+                Nee sometimes enna romba torture pannuva, kalaipaa,
+                verupu ethikuva 😭😂 aana adhulam kooda enaku pudikum
+                because adhu nee. Enna evlo tease pannalum, sanda potalum,
+                konja nerathula marandhutu thirumba pesura namma bond
+                dhaan enaku romba special. 🫂💗
+            </p>
+
+            <p>
+                Nee enna epdi care pannura, en mela epdi affection
+                kaamikura, enna epdi comfortable ah feel panna vechuruka
+                nu words la sollave mudiyadhu. 🥹🤍 Unkita naan enna maari
+                irundhaalum accept pannuva nu oru confidence iruku…
+                adhu enaku romba periya blessing. 🧿✨
+            </p>
+
+            <p>
+                Life la enna nadandhaalum, namma rendu perum ippadiye
+                childish ah tease pannitu, sanda pottutu, thirumba pesitu,
+                konjitu , support pannitu irukanum nu dhaan aasai. 🫂💞
+            </p>
+
+            <p>
+                Un birthday-ku naan oru wish mattum kekuren…
+                nee always happy ah irukanum, healthy ah irukanum,
+                unakku pidicha life-ah achieve pannanum,
+                nee dream panra ellame unakku kidaikanum. ❤️‍🩹✨
+                And un life la naanum ippadiye irukanum…
+                today mattum illa, tomorrow mattum illa,
+                long long long time. 🤞🏻🧿
+            </p>
+
+            <p>
+                Unakku teariyuma... nee enkitta chat la peasunaalum...
+                call la peasunaalum... enaku romba happy dhaan. Aana sila naatkal la...
+                adu matum podhaadhu nu thonum...😭
+            </p>
+
+            <p>
+                Un voice katta apram dhaan...
+                unna innum nearla paakanum nu aasai adhigama aagudhu.
+                Un pakkathula ukkandu.. phone ellama... endha
+                distraction um illama...un kooda kojam nearam
+                time spend pannanum nu romba aasaya iruku...😭💋
+            </p>
+
+            <p>
+                Enakku unkitta irundu perusa edhuvum venam...
+                Un kaiya pudichittu kojam dhooram nadakanum...
+                Nee peasuratha amaidhiya kettuttu irukanum...
+                Sila nearam eduvum pesaama,
+                unkooda amaidhiya ukkandhirundha podum...
+                Adhuvea enakku romba peariya santhosham...❤️‍🩹
+            </p>
+
+             <p>
+                Aana...idhan ellam aasaiyum, ovvoru naalum
+                aasaiya dhaan irundhuttu pogudhu.
+                Unna paakanum nu manasu evlo thudichalum...
+                andha dhooratha thaandi unkitta vara mudiyala.
+                Adhu dhaan yeanaku pudikala nama distance laa...🥹
+            </p>
+
+            <p>
+                Aana... oru naal kandippa indha distance mudiyum...
+                Appo... unna paatha udane...
+                Evalo naal unna miss pannadhellam...
+                Unnoda orey oru siripulla marandhuruven.🥹💍🤍
+            </p>
+
+            <p>
+                Unna lose panna kudadhu nu dhaan en heart always sollum.
+                So please ippadiye en kooda iru…
+                enna vidaama, enna tolerate pannitu,
+                enna love pannitu, enna daily daily konjitu. 😭💋
+            </p>
+
+            <p>
+                Namma future pathi pesumbodhu enaku oru cute smile varum…
+                because en future la nee irukanum nu naanum secretly
+                romba aasapadren. 🥹💍🤍
+            </p>
+
+            <p>
+                Happy Birthday once again en chella paiyan,
+                enoda olli kuchi, enoda Yuvaaa 😭😂💗
+                Unakku enna vida better birthday gift irukumo therla…
+                but un birthday-ku en whole heart ah,
+                whole love ah, whole life-la oru place ah kuduthuten.
+                🫂🧿💗
+            </p>
+
+            <p>
+                I love youuuuu so so so muchhhhh daaa 😭💋🤍
+                Happy Birthday my favourite person, my love,
+                my aluuu, my Yuvaaa. 💗🫂♾️
+            </p>
+
+        </div>
+
+    </div>
+
+    <button class="next-btn" onclick="nextPage(5)">
+        Next Surprise ➜
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+PAGE 5 - FUN GALLERY
+===================================================== -->
+
+<section class="page" id="page5">
+
+    <div class="hearts" id="hearts5"></div>
+
+    <div class="center">
+
+        <h1 style="font-size:55px;">
+            Fun Gallery 😜
+        </h1>
+
+        <div class="option-container">
+
+            <div
+                class="option-card"
+                onclick="openGallery('funnyGallery')">
+
+                <div class="cartoon">😂</div>
+                <h3>Funny Pics</h3>
+
+            </div>
+
+            <div
+                class="option-card"
+                onclick="openGallery('aiGallery')">
+
+                <div class="cartoon">🤖</div>
+                <h3>AI Edits</h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <button class="next-btn" onclick="nextPage(6)">
+        Next Surprise ➜
+    </button>
+
+
+    <!-- FUNNY GALLERY -->
+
+    <div class="gallery" id="funnyGallery">
+
+        <main class="funny-collage">
+
+            <div class="scrap-paper paper-one"></div>
+            <div class="scrap-paper paper-two"></div>
+
+            <div class="leaf-shadow shadow-one"></div>
+            <div class="leaf-shadow shadow-two"></div>
+
+            <div class="top-heart">
+                ♡
+            </div>
+
+            <button
+                class="back-btn scrapbook-back"
+                onclick="closeGallery('funnyGallery')">
+                ← Back
+            </button>
+
+
+            <!-- LEFT PHOTO -->
+
+            <div class="photo-card photo-left">
+
+                <div class="tape small-tape"></div>
+
+                <img
+                    src="f1.jpeg"
+                    alt="Funny memory 1">
+
+            </div>
+
+
+            <!-- CENTER VIDEO -->
+
+            <div class="photo-card photo-center video-center">
+
+                <div class="tape center-tape"></div>
+
+                <video
+                    id="funnyVideo"
+                    src="f2.mp4"
+                    autoplay
+                    loop
+                    muted
+                    playsinline
+                    preload="auto"
+                    aria-label="Funny memory video">
+                    Your browser does not support video playback.
+                </video>
+
+            </div>
+
+
+            <!-- RIGHT PHOTO -->
+
+            <div class="photo-card photo-right">
+
+                <div class="tape small-tape"></div>
+
+                <img
+                    src="f3.jpeg"
+                    alt="Funny memory 3">
+
+            </div>
+
+
+            <!-- CAPTION -->
+
+            <section class="scrap-caption">
+
+                <p>
+                    MEMORIES WITH YOU
+                </p>
+
+                <div class="caption-heart">
+                    ♡
+                </div>
+
+                <div class="scrap-underline"></div>
+
+            </section>
+
+
+            <!-- FLOWERS -->
+
+            <div class="flower-decoration">
+
+                <span class="stem stem-one"></span>
+                <span class="stem stem-two"></span>
+                <span class="stem stem-three"></span>
+                <span class="stem stem-four"></span>
+
+                <span class="flower flower-one"></span>
+                <span class="flower flower-two"></span>
+                <span class="flower flower-three"></span>
+                <span class="flower flower-four"></span>
+                <span class="flower flower-five"></span>
+
+            </div>
+
+            <div class="bottom-tape"></div>
+
+            <div class="dots dots-one">
+                •••
+            </div>
+
+            <div class="dots dots-two">
+                •••
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <!-- AI GALLERY -->
+
+    <div class="gallery" id="aiGallery">
+
+        <button
+            class="back-btn"
+            onclick="closeGallery('aiGallery')">
+            ← Back
+        </button>
+
+        <h2 style="font-size:40px;">
+            🤖 AI Edits
+        </h2>
+
+        <div class="ai-edits-container">
+
+            <img src="a1.jpeg" alt="AI Edit 1">
+
+            <img src="a2.jpeg" alt="AI Edit 2">
+
+            <img src="a3.jpeg" alt="AI Edit 3">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+PAGE 6 - XO GAME
+===================================================== -->
+
+<section class="page" id="page6">
+
+    <div class="hearts" id="hearts6"></div>
+
+    <div class="center">
+
+        <div class="game-intro" id="gameIntro">
+
+            <div style="font-size:90px;">
+                🎮😏
+            </div>
+
+            <h1>
+                Enna sir happy ah full ah... 💗
+            </h1>
+
+            <p>
+                Vaa oru game viladalam! 😌🎮
+            </p>
+
+            <button
+                class="game-start-btn"
+                onclick="showGameRules()">
+                Let's Go ➜
+            </button>
+
+        </div>
+
+
+        <div class="game-rules" id="gameRules">
+
+            <h2>
+                🎮 GAME RULES
+            </h2>
+
+            <p class="love-rule">
+                Yaru game la win panuragalo avaga loda love tha
+                Athigam 💗🫂
+            </p>
+
+            <p>
+                <b style="color:#1665c1;">
+                    X = Yuva
+                </b>
+
+                &nbsp;&nbsp; | &nbsp;&nbsp;
+
+                <b style="color:#9e1c25;">
+                    O = NANDHINI
+                </b>
+            </p>
+
+            <button
+                class="game-start-btn"
+                onclick="startGame()">
+                Let's Go 🎮
+            </button>
+
+        </div>
+
+
+        <div class="game-area" id="gameArea">
+
+            <h1 style="font-size:40px;">
+                🎮 XO Love Game 💗
+            </h1>
+
+            <p style="margin-top:8px;">
+
+                <b style="color:#1665c1;">
+                    X = Yuva
+                </b>
+
+                &nbsp;&nbsp; | &nbsp;&nbsp;
+
+                <b style="color:#9e1c25;">
+                    O = NANDHINI
+                </b>
+
+            </p>
+
+
+            <div class="game-board" id="gameBoard">
+
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+                <div class="cell" data-index="8"></div>
+
+            </div>
+
+
+            <div
+                class="result"
+                id="gameResult">
+            </div>
+
+            <div id="smileArea"></div>
+
+
+            <div
+                class="game-end-buttons"
+                id="gameEndButtons">
+
+                <button
+                    class="try-again"
+                    onclick="restartGame()">
+                    Try Again 🔄
+                </button>
+
+                <button
+                    class="game-next"
+                    onclick="nextPage(7)">
+                    Next Surprise ➜
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+PAGE 7 - QUESTIONS
+===================================================== -->
+
+<section class="page" id="page7">
+
+    <div class="hearts" id="hearts7"></div>
+
+    <div class="center">
+
+
+        <!-- QUESTION 1 -->
+
+        <div
+            class="question-screen active"
+            id="question1">
+
+            <div class="question-box">
+
+                <div class="question-number">
+                    QUESTION 1 / 3 💗
+                </div>
+
+                <h1>
+                    First time enaiya nee pakum modu enna nu feel pana?
+                    ( Three line la solu).. 🥹
+                </h1>
+
+                <textarea
+                    class="answer-box"
+                    id="answer1"
+                    placeholder="Inga un answer type pannu... 💭❤️"></textarea>
+
+                <button
+                    class="question-next"
+                    onclick="goToQuestion(2)">
+                    Next Question ➜
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUESTION 2 -->
+
+        <div
+            class="question-screen"
+            id="question2">
+
+            <div class="question-box">
+
+                <div class="question-number">
+                    QUESTION 2 / 3 💗
+                </div>
+
+                <h1>
+                    Nama rendu pearula yaroda love, effort,
+                    care lam adthikama irukum? 
+                    ( one line la solu )...😏❤️
+                </h1>
+
+                <textarea
+                    class="answer-box"
+                    id="answer2"
+                    placeholder="Inga un answer type pannu... 👀💗"></textarea>
+
+                <button
+                    class="question-next"
+                    onclick="previousQuestion(2)">
+                    ← Previous Question
+                </button>
+
+                <button
+                    class="question-next"
+                    onclick="goToQuestion(3)">
+                    Next Question ➜
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUESTION 3 -->
+
+        <div
+            class="question-screen"
+            id="question3">
+
+            <div class="question-box">
+
+                <div class="question-number">
+                    QUESTION 3 / 3 💗
+                </div>
+
+                <h1>
+                    Enkita unaku pudichadu enna enna nah?  ( Three line la solu )..🥹💗
+                </h1>
+
+                <textarea
+                    class="answer-box"
+                    id="answer3"
+                    placeholder="Inga un answer type pannu... 💕"></textarea>
+
+                <button
+                    class="question-next"
+                    onclick="previousQuestion(3)">
+                    ← Previous Question
+                </button>
+
+                <button
+                    class="question-next"
+                    onclick="showAllAnswers()">
+                    Finish ❤️
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ALL ANSWERS -->
+
+        <div
+            class="question-screen"
+            id="allAnswers">
+
+            <div class="answers-summary">
+
+                <h1>
+                    💗 Your Answers 💗
+                </h1>
+
+
+                <div class="answer-card">
+
+                    <h3>
+                        1. First time enaiya nee pakum modu
+                        enna nu feel pana? 🥹
+                    </h3>
+
+                    <p id="finalAnswer1"></p>
+
+                </div>
+
+
+                <div class="answer-card">
+
+                    <h3>
+                        2. Nama rendu pearula yaroda love,
+                        effort, care lam adthikama iruku nu solu? 😏❤️
+                    </h3>
+
+                    <p id="finalAnswer2"></p>
+
+                </div>
+
+
+                <div class="answer-card">
+
+                    <h3>
+                        3. Enkita unaku pudichadu enna enna nah? 🥹💗
+                    </h3>
+
+                    <p id="finalAnswer3"></p>
+
+                </div>
+
+
+                <div class="note">
+
+                    📝 Note:
+
+                    Take a screenshot of your answers
+                    and send it to me! 😌💗
+
+                    <br>
+
+                    Because naanum un answers pakanum laaa
+                    🥹🫂❤️
+
+                </div>
+
+
+                <button
+                    class="question-next"
+                    onclick="backToQuestion3()">
+                    ← Back to Question 3
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="next-btn"
+        id="questionFinalNext"
+        style="display:none;"
+        onclick="nextPage(8)">
+        Next Surprise ➜
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+PAGE 8 - FINAL
+===================================================== -->
+
+<section class="page" id="page8">
+
+    <div class="hearts" id="hearts8"></div>
+
+    <div class="center final-page">
+
+        <div style="font-size:90px;">
+            🎂💗🥹
+        </div>
+
+        <h1>
+            Once again Happy Birthday da chella paiya! ❤️
+        </h1>
+
+        <p>
+            Lets meet soon 🥹💗
+        </p>
+
+        <p class="final-love">
+            I love you sooo muchhhh ❤️🫂♾️
+        </p>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =====================================================
+PAGE NAVIGATION
+===================================================== */
+
+let currentPage = 1;
+
+function nextPage(pageNumber){
+
+    document
+        .getElementById("page" + currentPage)
+        .classList
+        .remove("active");
+
+    document
+        .getElementById("page" + pageNumber)
+        .classList
+        .add("active");
+
+    currentPage = pageNumber;
+}
+
+
+/* =====================================================
+BACK BUTTON
+===================================================== */
+
+function goBackPage(){
+
+    if(currentPage > 1){
+        nextPage(currentPage - 1);
+    }
+
+}
+
+
+/* Automatically add Back buttons to Pages 2–8 */
+
+for(let i = 2; i <= 8; i++){
+
+    const backButton = document.createElement("button");
+
+    backButton.className = "back-page-btn";
+
+    backButton.innerText = "← Back";
+
+    backButton.onclick = function(){
+        goBackPage();
+    };
+
+    document
+        .getElementById("page" + i)
+        .appendChild(backButton);
+
+}
+
+
+/* =====================================================
+PASSWORD
+===================================================== */
+
+let password = "";
+
+const correctPassword = "0804";
+
+
+function pressKey(number){
+
+    if(password.length < 4){
+
+        password += number;
+
+        updatePasswordDisplay();
+
+    }
+
+}
+
+
+function backspace(){
+
+    password = password.slice(0,-1);
+
+    updatePasswordDisplay();
+
+}
+
+
+function updatePasswordDisplay(){
+
+    let display = "";
+
+    for(let i = 0; i < 4; i++){
+
+        display +=
+            i < password.length
+            ? "● "
+            : "_ ";
+
+    }
+
+    document.getElementById("dots").innerText = display;
+
+}
+
+
+function checkPassword(){
+
+    if(password === correctPassword){
+
+        nextPage(2);
+
+    }else{
+
+        document
+            .getElementById("wrongScreen")
+            .classList
+            .add("show");
+
+    }
+
+}
+
+
+function closeWrong(){
+
+    document
+        .getElementById("wrongScreen")
+        .classList
+        .remove("show");
+
+    password = "";
+
+    updatePasswordDisplay();
+
+}
+
+
+/* =====================================================
+KEYBOARD PASSWORD
+===================================================== */
+
+document.addEventListener("keydown",function(event){
+
+    if(currentPage !== 1)return;
+
+    if(event.key >= "0" && event.key <= "9"){
+        pressKey(event.key);
+    }
+
+    if(event.key === "Backspace"){
+        backspace();
+    }
+
+    if(event.key === "Enter"){
+        checkPassword();
+    }
+
+});
+
+
+/* =====================================================
+FLOATING HEARTS
+===================================================== */
+
+function createHearts(containerId){
+
+    const container =
+        document.getElementById(containerId);
+
+    if(!container)return;
+
+    for(let i = 0; i < 18; i++){
+
+        const heart =
+            document.createElement("div");
+
+        heart.className = "heart";
+
+        heart.innerText =
+            ["♥","♡","💗","💖","❤"]
+            [Math.floor(Math.random()*5)];
+
+        heart.style.left =
+            Math.random()*100 + "%";
+
+        heart.style.animationDelay =
+            Math.random()*6 + "s";
+
+        heart.style.animationDuration =
+            (4 + Math.random()*5) + "s";
+
+        container.appendChild(heart);
+
+    }
+
+}
+
+
+for(let i = 2; i <= 8; i++){
+
+    createHearts("hearts" + i);
+
+}
+
+
+/* =====================================================
+PAGE 3 - MEMORIES
+===================================================== */
+
+function showMedia(type){
+
+    document
+        .querySelectorAll("#page3 .media-area")
+        .forEach(area => {
+            area.classList.remove("active");
+        });
+
+    document
+        .getElementById(type)
+        .classList
+        .add("active");
+
+}
+
+
+/* =====================================================
+PAGE 3 - VIDEO
+
+FILE:
+v1.mp4
+
+SOUND:
+ON
+
+RATIO:
+2:3
+
+WHEN VIDEO BUTTON IS CLICKED:
+1. Video appears
+2. Video starts automatically
+3. Sound is ON
+4. Video enters fullscreen
+===================================================== */
+
+function showVideo(){
+
+    const video =
+        document.getElementById("memoryVideo");
+
+    /* Show only video */
+
+    document
+        .querySelectorAll("#page3 .media-area")
+        .forEach(area => {
+            area.classList.remove("active");
+        });
+
+    document
+        .getElementById("videos")
+        .classList
+        .add("active");
+
+
+    /* Make sure sound is ON */
+
+    video.muted = false;
+
+    video.volume = 1;
+
+
+    /* Start video from beginning */
+
+    video.currentTime = 0;
+
+
+    /* Play with sound */
+
+    const playPromise = video.play();
+
+
+    if(playPromise !== undefined){
+
+        playPromise.catch(() => {
+
+            /*
+             If browser blocks autoplay with sound,
+             the video controls will still be available.
+            */
+
+            video.controls = true;
+
+        });
+
+    }
+
+
+    /* Fullscreen */
+
+    if(video.requestFullscreen){
+
+        video.requestFullscreen().catch(() => {});
+
+    }
+
+    else if(video.webkitRequestFullscreen){
+
+        video.webkitRequestFullscreen();
+
+    }
+
+}
+
+
+/* =====================================================
+WHEN LEAVING FULLSCREEN
+STOP VIDEO
+===================================================== */
+
+document.addEventListener("fullscreenchange",function(){
+
+    const video =
+        document.getElementById("memoryVideo");
+
+    if(!document.fullscreenElement){
+
+        /*
+         Keep video ready but stop it
+         after fullscreen is closed.
+        */
+
+        if(!video.paused){
+            video.pause();
+        }
+
+    }
+
+});
+
+
+/* Safari fullscreen support */
+
+document.addEventListener("webkitfullscreenchange",function(){
+
+    const video =
+        document.getElementById("memoryVideo");
+
+    if(!document.webkitFullscreenElement){
+
+        if(!video.paused){
+            video.pause();
+        }
+
+    }
+
+});
+
+
+/* =====================================================
+GALLERY
+===================================================== */
+
+function openGallery(id){
+
+    const gallery = document.getElementById(id);
+
+    gallery.classList.add("show");
+
+    /* Auto-play funny video like a GIF */
+    if(id === "funnyGallery"){
+
+        const funnyVideo = gallery.querySelector("video");
+
+        if(funnyVideo){
+
+            funnyVideo.muted = true;
+            funnyVideo.currentTime = 0;
+
+            const playPromise = funnyVideo.play();
+
+            if(playPromise !== undefined){
+                playPromise.catch(() => {
+                    /* Browser autoplay restriction */
+                });
+            }
+
+        }
+
+    }
+
+}
+
+
+function closeGallery(id){
+
+    const gallery =
+        document.getElementById(id);
+
+    gallery.classList.remove("show");
+
+
+    /* Stop funny video when gallery closes */
+
+    if(id === "funnyGallery"){
+
+        const funnyVideo =
+            gallery.querySelector("video");
+
+        if(funnyVideo){
+
+            funnyVideo.pause();
+
+            funnyVideo.currentTime = 0;
+
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+XO GAME
+===================================================== */
+
+let board = [
+    "","","",
+    "","","",
+    "","",""
+];
+
+let gameOver = false;
+
+
+/* INTRO → RULES */
+
+function showGameRules(){
+
+    document
+        .getElementById("gameIntro")
+        .style
+        .display = "none";
+
+    document
+        .getElementById("gameRules")
+        .classList
+        .add("show");
+
+}
+
+
+/* RULES → GAME */
+
+function startGame(){
+
+    document
+        .getElementById("gameRules")
+        .classList
+        .remove("show");
+
+    document
+        .getElementById("gameArea")
+        .classList
+        .add("show");
+
+    restartGame();
+
+}
+
+
+/* CLICK X */
+
+document
+    .getElementById("gameBoard")
+    .addEventListener("click",function(event){
+
+        const cell =
+            event.target.closest(".cell");
+
+        if(!cell)return;
+
+        const index =
+            Number(cell.dataset.index);
+
+        playX(index);
+
+    });
+
+
+/* X = YUVA */
+
+function playX(index){
+
+    if(gameOver)return;
+
+    if(board[index] !== "")return;
+
+    board[index] = "X";
+
+    renderBoard();
+
+
+    if(checkWinner("X")){
+
+        finishGame();
+
+        return;
+
+    }
+
+
+    if(board.every(value => value !== "")){
+
+        finishGame();
+
+        return;
+
+    }
+
+
+    setTimeout(computerMove,450);
+
+}
+
+
+/* O = NANDHINI */
+
+function computerMove(){
+
+    if(gameOver)return;
+
+
+    let empty =
+        board
+            .map((value,index) =>
+                value === "" ? index : null
+            )
+            .filter(index => index !== null);
+
+
+    if(empty.length === 0)return;
+
+
+    /* O winning move */
+
+    for(const index of empty){
+
+        board[index] = "O";
+
+        if(checkWinner("O")){
+
+            renderBoard();
+
+            finishGame();
+
+            return;
+
+        }
+
+        board[index] = "";
+
+    }
+
+
+    /* Block X */
+
+    for(const index of empty){
+
+        board[index] = "X";
+
+        const wouldWin =
+            checkWinner("X");
+
+        board[index] = "";
+
+        if(wouldWin){
+
+            board[index] = "O";
+
+            renderBoard();
+
+            if(board.every(value => value !== "")){
+                finishGame();
+            }
+
+            return;
+
+        }
+
+    }
+
+
+    /* Center */
+
+    if(board[4] === ""){
+
+        board[4] = "O";
+
+    }else{
+
+        const randomIndex =
+            empty[
+                Math.floor(
+                    Math.random()*empty.length
+                )
+            ];
+
+        board[randomIndex] = "O";
+
+    }
+
+
+    renderBoard();
+
+
+    if(checkWinner("O")){
+
+        finishGame();
+
+        return;
+
+    }
+
+
+    if(board.every(value => value !== "")){
+
+        finishGame();
+
+    }
+
+}
+
+
+/* CHECK WINNER */
+
+function checkWinner(player){
+
+    const winningPatterns = [
+
+        [0,1,2],
+        [3,4,5],
+        [6,7,8],
+
+        [0,3,6],
+        [1,4,7],
+        [2,5,8],
+
+        [0,4,8],
+        [2,4,6]
+
+    ];
+
+
+    return winningPatterns.some(pattern => {
+
+        return pattern.every(
+            index => board[index] === player
+        );
+
+    });
+
+}
+
+
+/* GAME END */
+
+function finishGame(){
+
+    if(gameOver)return;
+
+    gameOver = true;
+
+
+    document
+        .getElementById("gameResult")
+        .innerHTML =
+        "💗 NANDHINI IS THE WINNER! 🏆";
+
+
+    document
+        .getElementById("smileArea")
+        .innerHTML =
+        '<div class="smile">😄🎉💗</div>';
+
+
+    document
+        .getElementById("gameEndButtons")
+        .classList
+        .add("show");
+
+}
+
+
+/* RESTART GAME */
+
+function restartGame(){
+
+    board = [
+        "","","",
+        "","","",
+        "","",""
+    ];
+
+    gameOver = false;
+
+
+    document
+        .getElementById("gameResult")
+        .innerText = "";
+
+
+    document
+        .getElementById("smileArea")
+        .innerHTML = "";
+
+
+    document
+        .getElementById("gameEndButtons")
+        .classList
+        .remove("show");
+
+
+    renderBoard();
+
+}
+
+
+/* RENDER BOARD */
+
+function renderBoard(){
+
+    document
+        .querySelectorAll("#gameBoard .cell")
+        .forEach((cell,index) => {
+
+            cell.innerText =
+                board[index] || "";
+
+            cell.classList.remove("x","o");
+
+
+            if(board[index] === "X"){
+                cell.classList.add("x");
+            }
+
+            if(board[index] === "O"){
+                cell.classList.add("o");
+            }
+
+        });
+
+}
+
+
+/* =====================================================
+PAGE 7 QUESTIONS
+===================================================== */
+
+function goToQuestion(number){
+
+    document
+        .querySelectorAll(".question-screen")
+        .forEach(screen => {
+            screen.classList.remove("active");
+        });
+
+
+    document
+        .getElementById("question" + number)
+        .classList
+        .add("active");
+
+
+    document
+        .getElementById("questionFinalNext")
+        .style
+        .display = "none";
+
+}
+
+
+/* PREVIOUS QUESTION */
+
+function previousQuestion(number){
+
+    if(number > 1){
+
+        goToQuestion(number - 1);
+
+    }
+
+}
+
+
+/* BACK TO QUESTION 3 */
+
+function backToQuestion3(){
+
+    goToQuestion(3);
+
+}
+
+
+/* SHOW ALL ANSWERS */
+
+function showAllAnswers(){
+
+    const answer1 =
+        document
+            .getElementById("answer1")
+            .value
+            .trim();
+
+    const answer2 =
+        document
+            .getElementById("answer2")
+            .value
+            .trim();
+
+    const answer3 =
+        document
+            .getElementById("answer3")
+            .value
+            .trim();
+
+
+    document
+        .getElementById("finalAnswer1")
+        .innerText =
+        answer1 || "No answer entered 😭";
+
+
+    document
+        .getElementById("finalAnswer2")
+        .innerText =
+        answer2 || "No answer entered 😭";
+
+
+    document
+        .getElementById("finalAnswer3")
+        .innerText =
+        answer3 || "No answer entered 😭";
+
+
+    document
+        .querySelectorAll(".question-screen")
+        .forEach(screen => {
+            screen.classList.remove("active");
+        });
+
+
+    document
+        .getElementById("allAnswers")
+        .classList
+        .add("active");
+
+
+    document
+        .getElementById("questionFinalNext")
+        .style
+        .display = "block";
+
+}
+
+</script>
+
+</body>
+</html>
